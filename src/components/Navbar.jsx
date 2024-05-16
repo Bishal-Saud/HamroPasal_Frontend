@@ -17,63 +17,86 @@ import {
   Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+
+import { Link } from "react-router-dom";
+
 import {
   Bars4Icon,
-  GlobeAmericasIcon,
-  NewspaperIcon,
-  PhoneIcon,
-  RectangleGroupIcon,
-  SquaresPlusIcon,
-  SunIcon,
-  TagIcon,
   UserGroupIcon,
+  HeartIcon,
+  ShoppingCartIcon,
+  HomeIcon,
+  UserIcon,
+  TvIcon,
+  CakeIcon,
+  ClockIcon,
+  ComputerDesktopIcon,
+  GiftIcon,
 } from "@heroicons/react/24/solid";
+import { KeyIcon, StarIcon } from "@heroicons/react/16/solid";
+import CartMenu from "./CartMenu";
 
 const navListMenuItems = [
   {
-    title: "Products",
-    description: "Find the perfect solution for your needs.",
-    icon: SquaresPlusIcon,
+    title: "Women's Fashion",
+    description: "Explore the latest trends in women's fashion.",
+    icon: UserIcon,
   },
   {
-    title: "About Us",
-    description: "Meet and learn about our dedication",
+    title: "Health & Beauty",
+    description: "Find beauty products and health essentials.",
+    icon: HeartIcon,
+  },
+  {
+    title: "Men's Fashion",
+    description: "Discover stylish men's clothing and accessories.",
     icon: UserGroupIcon,
   },
+
   {
-    title: "Blog",
-    description: "Find the perfect solution for your needs.",
-    icon: Bars4Icon,
+    title: "Watches & Accessories",
+    description: "Shop for watches and fashion accessories.",
+    icon: ClockIcon,
   },
   {
-    title: "Services",
-    description: "Learn how we can help you achieve your goals.",
-    icon: SunIcon,
+    title: "Electronic Devices",
+    description: "Browse the latest in electronic gadgets.",
+    icon: ComputerDesktopIcon,
   },
   {
-    title: "Support",
-    description: "Reach out to us for assistance or inquiries",
-    icon: GlobeAmericasIcon,
+    title: "TV & Home Appliances",
+    description: "Upgrade your home with new appliances.",
+    icon: TvIcon,
   },
   {
-    title: "Contact",
-    description: "Find the perfect solution for your needs.",
-    icon: PhoneIcon,
+    title: "Electronic Accessories",
+    description: "Get accessories for all your electronic devices.",
+    icon: KeyIcon,
   },
   {
-    title: "News",
-    description: "Read insightful articles, tips, and expert opinions.",
-    icon: NewspaperIcon,
+    title: "Groceries & Pets",
+    description: "Shop for groceries and pet supplies.",
+    icon: ShoppingCartIcon,
   },
   {
-    title: "Products",
-    description: "Find the perfect solution for your needs.",
-    icon: RectangleGroupIcon,
+    title: "Babies & Toys",
+    description: "Find products for babies and fun toys.",
+    icon: CakeIcon,
   },
   {
-    title: "Special Offers",
-    description: "Explore limited-time deals and bundles",
-    icon: TagIcon,
+    title: "Home & Lifestyle",
+    description: "Enhance your home and lifestyle.",
+    icon: HomeIcon,
+  },
+  {
+    title: "Sports & Outdoor",
+    description: "Gear up for sports and outdoor activities.",
+    icon: GiftIcon,
+  },
+  {
+    title: "Motors, Tools & DIY",
+    description: "Tools and equipment for all your DIY projects.",
+    icon: StarIcon,
   },
 ];
 
@@ -82,7 +105,7 @@ function NavListMenu() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const renderItems = navListMenuItems.map(
     ({ icon, title, description }, key) => (
-      <a href="#" key={key}>
+      <Link to="#" key={key}>
         <MenuItem className="flex items-center gap-3 rounded-lg">
           <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
             {" "}
@@ -107,7 +130,7 @@ function NavListMenu() {
             </Typography>
           </div>
         </MenuItem>
-      </a>
+      </Link>
     )
   );
 
@@ -161,32 +184,47 @@ function NavList() {
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
       <Typography
         as="a"
-        href="#"
-        variant="small"
-        color="blue-gray"
-        className="font-medium"
-      >
-        <ListItem className="flex items-center gap-2 py-2 pr-4">Home</ListItem>
-      </Typography>
-      <Typography
-        as="a"
-        href="#"
-        variant="small"
-        color="blue-gray"
-        className="font-medium"
-      >
-        <ListItem className="flex items-center gap-2 py-2 pr-4">About</ListItem>
-      </Typography>
-      <NavListMenu />
-      <Typography
-        as="a"
-        href="#"
+        href="/"
         variant="small"
         color="blue-gray"
         className="font-medium"
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">
-          New Arrivals
+          <Link to="/">Home</Link>
+        </ListItem>
+      </Typography>
+      <Typography
+        as="a"
+        href="/about"
+        variant="small"
+        color="blue-gray"
+        className="font-medium"
+      >
+        <ListItem className="flex items-center gap-2 py-2 pr-4">
+          <Link to="/about">About</Link>
+        </ListItem>
+      </Typography>
+      <NavListMenu />
+      <Typography
+        as="a"
+        href="/newArrivals"
+        variant="small"
+        color="blue-gray"
+        className="font-medium"
+      >
+        <ListItem className="flex items-center gap-2 py-2 pr-4">
+          <Link to="/newArrivals"> New Arrivals</Link>
+        </ListItem>
+      </Typography>
+      <Typography
+        as="a"
+        href="/contact"
+        variant="small"
+        color="blue-gray"
+        className="font-medium"
+      >
+        <ListItem className="flex items-center gap-2 py-2 pr-4">
+          <Link to="/contact"> Contact Us</Link>
         </ListItem>
       </Typography>
       <Typography
@@ -197,7 +235,10 @@ function NavList() {
         className="font-medium"
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">
-          Contact Us
+          <div className=" grid grid-cols-2 gap-2 justify-content-center">
+            <span>Cart</span>
+            <CartMenu />
+          </div>
         </ListItem>
       </Typography>
     </List>
