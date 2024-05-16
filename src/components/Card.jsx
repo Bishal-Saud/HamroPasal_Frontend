@@ -43,10 +43,19 @@ export function EcommerceCard() {
     fetchData();
   }, []);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (item) => {
     const newCount = cartCount + 1;
     setCartCount(newCount);
     localStorage.setItem("cartCount", newCount);
+    // Get existing cart items from localStorage
+    const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+
+    cartItems.push(item);
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
+    // Dispatch a custom event to notify the cart count change
+    const event = new CustomEvent("cartCountUpdated", { detail: newCount });
+    window.dispatchEvent(event);
   };
 
   if (loading) return <div>Loading...</div>;
@@ -96,7 +105,7 @@ export function EcommerceCard() {
               ripple={false}
               fullWidth={true}
               className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
-              onClick={handleAddToCart}
+              onClick={() => handleAddToCart(item)}
             >
               Add to Cart
             </Button>
