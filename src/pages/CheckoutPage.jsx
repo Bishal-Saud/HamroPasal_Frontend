@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   Button,
   IconButton,
@@ -33,14 +33,17 @@ const CheckoutPage = () => {
       {cartItems.length === 0 ? (
         <div className="py-16 px-8 h-screen flex items-center justify-center">
           <Typography className="text-center" variant="h5">
-            Please add items to checkout
+            Please add items to checkout !!
           </Typography>
+          <Link to="/" className="m-5 underline text-blue-gray-500">
+            Go Back
+          </Link>
         </div>
       ) : (
         cartItems?.map((item) => (
           <section className="py-16 px-8" key={id}>
             <div className="mx-auto container grid place-items-center grid-cols-1 md:grid-cols-2">
-              <img src={item.image} alt={item.title} className="h-[36rem]" />
+              <img src={item.image} alt={item.title} className="h-[20rem]" />
               <div>
                 <Typography className="mb-4" variant="h3">
                   {item.title}

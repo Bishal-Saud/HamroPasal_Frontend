@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   Card,
   CardHeader,
@@ -10,24 +12,19 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
+  Spinner,
 } from "@material-tailwind/react";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCart } from "./Cartcontext";
 
 export function EcommerceCard() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [cartCount, setCartCount] = useState(0);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
+  const { addToCart } = useCart();
 
   useEffect(() => {
-    const storedCount = localStorage.getItem("cartCount");
-    if (storedCount) {
-      setCartCount(parseInt(storedCount, 10));
-    }
-
     const fetchData = async () => {
       try {
         const response = await axios.get("https://fakestoreapi.com/products");
@@ -43,23 +40,7 @@ export function EcommerceCard() {
   }, []);
 
   const handleAddToCart = (item) => {
-    console.log("Adding item to cart:", item);
-
-    // Get existing cart items from localStorage
-    const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-    cartItems.push(item);
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-
-    // Update the cart count
-    const newCount = cartItems.length;
-    setCartCount(newCount);
-    localStorage.setItem("cartCount", newCount);
-    console.log("New cart count:", newCount);
-
-    // Dispatch a custom event to notify the cart count change
-    const event = new CustomEvent("cartCountUpdated", { detail: newCount });
-    window.dispatchEvent(event);
-
+    addToCart(item);
     setCurrentItem(item);
     setDialogOpen(true);
   };
@@ -69,14 +50,20 @@ export function EcommerceCard() {
     setCurrentItem(null);
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div>
+        Loading...
+        <Spinner className="h-16 w-16 text-gray-900/50" />
+      </div>
+    );
   if (error) return <div>Error: {error.message}</div>;
 
   return (
     <>
       <section className="flex items-center justify-center flex-wrap gap-5">
-        {data?.map((item) => (
-          <Card className="w-56 h-96" key={item.id}>
+        {data.map((item, index) => (
+          <Card className="w-56 h-96" key={index}>
             <CardHeader shadow={false} floated={false} className="h-96">
               <img
                 src={item.image}
@@ -98,11 +85,11 @@ export function EcommerceCard() {
                 color="gray"
                 className="font-normal opacity-75 text-xs"
               >
-                {item?.description.slice(0, 50)}...
+                {item.description.slice(0, 50)}...
               </Typography>
               <div className="flex my-3">
                 <span className="font-semibold">Rating: </span>
-                {typeof item?.rating?.rate === "number" &&
+                {typeof item.rating?.rate === "number" &&
                   item.rating.rate >= 0 &&
                   item.rating.rate <= 5 && (
                     <Rating
@@ -115,7 +102,7 @@ export function EcommerceCard() {
             <CardFooter className="pt-0">
               <Button
                 ripple={false}
-                fullWidth={true}
+                fullWidth
                 className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
                 onClick={() => handleAddToCart(item)}
               >
@@ -129,8 +116,8 @@ export function EcommerceCard() {
       <Dialog open={dialogOpen} handler={closeDialog}>
         <DialogHeader>Item Added to Cart</DialogHeader>
         <DialogBody>
-          {currentItem && (
-            <>
+          {currentItem ? (
+            <div key={currentItem.id}>
               <img
                 src={currentItem.image}
                 alt={currentItem.title}
@@ -142,7 +129,9 @@ export function EcommerceCard() {
               <Typography className="mt-2">
                 Price: {currentItem.price}$
               </Typography>
-            </>
+            </div>
+          ) : (
+            <div>No item selected</div>
           )}
         </DialogBody>
         <DialogFooter>
