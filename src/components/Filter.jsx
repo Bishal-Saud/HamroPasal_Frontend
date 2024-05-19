@@ -57,23 +57,31 @@ export default function FilterProducts() {
   const mensFashionIndex = uniqueCategories.indexOf("men's clothing");
 
   return (
-    <Tabs value={mensFashionIndex}>
+    <Tabs value={mensFashionIndex} className="">
       {" "}
-      <Typography variant="h1" color="blue" textGradient className="my-10">
+      <Typography
+        variant="h1"
+        color="blue"
+        textGradient
+        className="my-10  text-xl 2xl:text-6xl flex items-center justify-center"
+      >
         Choose Your Best
       </Typography>
       {/* Set the value to the index of "Men's Fashion" */}
-      <TabsHeader>
+      <TabsHeader className=" flex justify-center  items-center flex-wrap 2xl:flex-nowrap">
         {uniqueCategories.map((category, index) => (
           <Tab key={index} value={index}>
             {category}
           </Tab>
         ))}
       </TabsHeader>
-      <TabsBody className="flex">
+      <TabsBody
+        className="flex flex-wrap justify-center items-center
+      "
+      >
         {uniqueCategories.map((category, idx) => (
           <TabPanel
-            className="flex items-center flex-nowrap gap-5 "
+            className="flex items-center justify-center flex-wrap gap-5 "
             key={idx}
             value={idx}
           >

@@ -45,7 +45,12 @@ function Homepage() {
         </div>
         {/* Products  */}
         <div className="products mt-10">
-          <Typography variant="h1" color="blue" textGradient className="ml-20">
+          <Typography
+            variant="h1"
+            color="blue"
+            textGradient
+            className="ml-20 2xl:text-6xl xl:text-4xl text-sm md:text-xl"
+          >
             Flash Sale: {formatTime(timeRemaining)}
           </Typography>
           <div className="flex items-center justify-center gap-5">

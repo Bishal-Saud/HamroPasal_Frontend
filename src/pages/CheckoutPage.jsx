@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   Button,
   IconButton,
@@ -12,7 +12,11 @@ import { useCart } from "../components/Cartcontext"; // Adjust the import path a
 
 const CheckoutPage = () => {
   const { cartItems } = useCart();
+  const navigate = useNavigate();
 
+  const buyNow = (id) => {
+    navigate(`/checkout/${id}/buynow`);
+  };
   return (
     <Layout>
       {cartItems.length === 0 ? (
@@ -52,7 +56,11 @@ const CheckoutPage = () => {
                   <div className="h-5 w-5 rounded border border-blue-gray-100 bg-gray-900 "></div>
                 </div>
                 <div className="mb-4 flex w-full items-center gap-3 md:w-1/2 ">
-                  <Button color="gray" className="w-52">
+                  <Button
+                    color="gray"
+                    className="w-52"
+                    onClick={() => buyNow(item.id)}
+                  >
                     Checkout
                   </Button>
                   <IconButton color="gray" variant="text" className="shrink-0">

@@ -11,6 +11,7 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
+  Badge,
 } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../components/Cartcontext"; // Adjust the import path as necessary
@@ -48,9 +49,9 @@ export default function CartMenu() {
         <MenuHandler>
           <button className="relative">
             <ShoppingCartIcon />
-            <span className="absolute bottom-5 right-0 font-semibold text-md">
-              {cartCount}
-            </span>
+            <Badge className="relative top-[-25px] " content={cartCount}>
+              {""}
+            </Badge>
           </button>
         </MenuHandler>
         <MenuList className="2xl:w-1/3 flex flex-col gap-2 xl:w-1/3 md:w-1/3 w-full sm:w-full">

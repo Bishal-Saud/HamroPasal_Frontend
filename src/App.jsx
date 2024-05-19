@@ -1,18 +1,23 @@
 import { Route, Routes } from "react-router-dom";
-import Layout from "./layout";
+
 import Homepage from "./pages/Homepage";
 import About from "./pages/About";
-import { Switch } from "@material-tailwind/react";
+
 import CheckoutPage from "./pages/CheckoutPage";
 import CartMenu from "./components/CartMenu";
+
+import CheckoutForm from "./pages/Checkout.Form";
+import ContactUs from "./pages/Contact";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Homepage />} />
       <Route path="/about" element={<About />} />
+      <Route path="/contact" element={<ContactUs />} />
 
       <Route path="/checkout/:id" element={<CheckoutPage />} />
+      <Route path="/checkout/:id/buynow" element={<CheckoutForm />} />
       <Route path="/" component={<CartMenu />} />
     </Routes>
   );
