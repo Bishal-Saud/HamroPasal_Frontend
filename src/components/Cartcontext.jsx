@@ -27,18 +27,29 @@ const CartProvider = ({ children }) => {
   const addToCart = (item) => {
     try {
       const updatedCartItems = [...cartItems, item];
-      const updatedCount = updatedCartItems.length;
       setCartItems(updatedCartItems);
-      setCartCount(updatedCount);
+      setCartCount(updatedCartItems.length);
       localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
-      localStorage.setItem("cartCount", updatedCount);
     } catch (error) {
       console.error("Error adding item to cart:", error);
     }
   };
 
+  const removeFromCart = (index) => {
+    try {
+      const updatedCartItems = cartItems.filter((_, i) => i !== index);
+      setCartItems(updatedCartItems);
+      setCartCount(updatedCartItems.length);
+      localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+    } catch (error) {
+      console.error("Error removing item from cart:", error);
+    }
+  };
+
   return (
-    <CartContext.Provider value={{ cartItems, cartCount, addToCart }}>
+    <CartContext.Provider
+      value={{ cartItems, cartCount, addToCart, removeFromCart }}
+    >
       {children}
     </CartContext.Provider>
   );

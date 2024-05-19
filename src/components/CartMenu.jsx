@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { ShoppingCartIcon } from "@heroicons/react/16/solid";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import {
@@ -11,58 +12,14 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../components/Cartcontext"; // Adjust the import path as necessary
 
 export default function CartMenu() {
-  const [cartCount, setCartCount] = useState(0);
-  const [cartItems, setCartItems] = useState([]);
+  const { cartItems, cartCount, removeFromCart } = useCart();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [itemToRemove, setItemToRemove] = useState(null);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const storedCount = localStorage.getItem("cartCount");
-    const storedItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-
-    if (storedCount) {
-      setCartCount(parseInt(storedCount, 10));
-    }
-    setCartItems(storedItems);
-
-    const handleCartCountUpdated = (event) => {
-      setCartCount(event.detail);
-      const updatedItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-      setCartItems(updatedItems);
-    };
-    window.addEventListener("cartCountUpdated", handleCartCountUpdated);
-
-    return () => {
-      window.removeEventListener("cartCountUpdated", handleCartCountUpdated);
-    };
-  }, []);
-
-  const handleRemoveFromCart = (index) => {
-    const updatedItems = [...cartItems];
-    updatedItems.splice(index, 1); // Remove item at the specified index
-
-    setCartItems(updatedItems);
-    localStorage.setItem("cartItems", JSON.stringify(updatedItems));
-
-    const newCount = cartCount - 1;
-    setCartCount(newCount);
-    localStorage.setItem("cartCount", newCount);
-
-    const event = new CustomEvent("cartCountUpdated", { detail: newCount });
-    window.dispatchEvent(event);
-
-    closeDialog();
-  };
-
-  const handleCheckoutClick = () => {
-    const cartId = "unique-cart-id";
-    navigate(`/checkout/${cartId}`);
-  };
 
   const openDialog = (index) => {
     setItemToRemove(index);
@@ -76,8 +33,13 @@ export default function CartMenu() {
 
   const confirmRemoveFromCart = () => {
     if (itemToRemove !== null) {
-      handleRemoveFromCart(itemToRemove);
+      removeFromCart(itemToRemove);
+      closeDialog();
     }
+  };
+
+  const handleCheckoutClick = () => {
+    navigate(`/checkout/:id`);
   };
 
   return (
@@ -100,13 +62,13 @@ export default function CartMenu() {
                   onClick={() => openDialog(index)}
                 />
               </div>
-              <img src={item.image} className="h-10 " alt={item.title} />
-              <MenuItem key={index}>
+              <img src={item.image} className="h-10" alt={item.title} />
+              <MenuItem>
                 {item.title.slice(0, 20)} -
                 <span className="mr-5"> Price : {item.price}$</span>
               </MenuItem>
               <Button
-                className="hover:border-none hover:outline-none md:h-10 "
+                className="hover:border-none hover:outline-none md:h-10"
                 onClick={handleCheckoutClick}
               >
                 Checkout

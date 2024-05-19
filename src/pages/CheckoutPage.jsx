@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   Button,
@@ -8,26 +8,11 @@ import {
 } from "@material-tailwind/react";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import Layout from "../layout";
+import { useCart } from "../components/Cartcontext"; // Adjust the import path as necessary
+
 const CheckoutPage = () => {
-  const { id } = useParams();
-  const [cartItems, setCartItems] = useState([]);
-  const fetchCartItems = () => {
-    const storedItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-    setCartItems(storedItems);
-  };
-  useEffect(() => {
-    fetchCartItems();
+  const { cartItems } = useCart();
 
-    const handleCartCountUpdated = () => {
-      fetchCartItems();
-    };
-
-    window.addEventListener("cartCountUpdated", handleCartCountUpdated);
-
-    return () => {
-      window.removeEventListener("cartCountUpdated", handleCartCountUpdated);
-    };
-  }, []);
   return (
     <Layout>
       {cartItems.length === 0 ? (
@@ -40,15 +25,15 @@ const CheckoutPage = () => {
           </Link>
         </div>
       ) : (
-        cartItems?.map((item) => (
-          <section className="py-16 px-8" key={id}>
+        cartItems.map((item, index) => (
+          <section className="py-16 px-8" key={index}>
             <div className="mx-auto container grid place-items-center grid-cols-1 md:grid-cols-2">
               <img src={item.image} alt={item.title} className="h-[20rem]" />
               <div>
                 <Typography className="mb-4" variant="h3">
                   {item.title}
                 </Typography>
-                <Typography variant="h5">$1,490</Typography>
+                <Typography variant="h5">{item.price}$</Typography>
                 <Typography className="!mt-4 text-base font-normal leading-[27px] !text-gray-500">
                   {item.description}
                 </Typography>
