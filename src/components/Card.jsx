@@ -52,7 +52,7 @@ export function EcommerceCard() {
 
   if (loading)
     return (
-      <div>
+      <div className="flex flex-col items-center">
         Loading...
         <Spinner className="h-16 w-16 text-gray-900/50" />
       </div>
@@ -61,22 +61,32 @@ export function EcommerceCard() {
 
   return (
     <>
-      <section className="flex items-center justify-center flex-wrap gap-5">
+      <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-6 gap-4 p-4 place-items-center">
         {data.map((item, index) => (
-          <Card className="w-56 h-96" key={index}>
-            <CardHeader shadow={false} floated={false} className="h-96">
+          <Card className="w-30 sm:w-48 md:w-56 h-auto" key={index}>
+            <CardHeader
+              shadow={false}
+              floated={false}
+              className="h-20 sm:h-48 md:h-56"
+            >
               <img
                 src={item.image}
                 alt="card-image"
-                className=" w-full h-full object-contain"
+                className=" w-full h-full 2xl:w-full 2xl:h-full object-contain"
               />
             </CardHeader>
-            <CardBody>
+            <CardBody className="p-2 sm:p-4">
               <div className="mb-2 flex items-center justify-between">
-                <Typography color="blue-gray" className="font-medium text-sm">
+                <Typography
+                  color="blue-gray"
+                  className="font-medium text-xs sm:text-sm"
+                >
                   {item.title.slice(0, 20)}..
                 </Typography>
-                <Typography color="blue-gray" className="font-medium">
+                <Typography
+                  color="blue-gray"
+                  className="font-medium text-xs sm:text-sm"
+                >
                   {item.price}$
                 </Typography>
               </div>
@@ -85,9 +95,9 @@ export function EcommerceCard() {
                 color="gray"
                 className="font-normal opacity-75 text-xs"
               >
-                {item.description.slice(0, 50)}...
+                {item.description.slice(0, 0)}...
               </Typography>
-              <div className="flex my-3">
+              <div className="hidden sm:flex my-2">
                 <span className="font-semibold">Rating: </span>
                 {typeof item.rating?.rate === "number" &&
                   item.rating.rate >= 0 &&
@@ -103,7 +113,7 @@ export function EcommerceCard() {
               <Button
                 ripple={false}
                 fullWidth
-                className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+                className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 text-xs sm:text-sm p-1 2xl:p-5"
                 onClick={() => handleAddToCart(item)}
               >
                 Add to Cart

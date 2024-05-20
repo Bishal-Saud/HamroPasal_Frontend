@@ -22,7 +22,7 @@ export default function FilterProducts() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const { addToCart } = useCart(); // Use the custom hook to access the cart context
+  const { addToCart } = useCart();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,63 +48,66 @@ export default function FilterProducts() {
     );
   if (error) return <div>Error: {error.message}</div>;
 
-  // Extract unique categories from the data
   const uniqueCategories = Array.from(
     new Set(data.map((item) => item.category))
   );
 
-  // Find the index of the "Men's Fashion" category
   const mensFashionIndex = uniqueCategories.indexOf("men's clothing");
 
   return (
-    <Tabs value={mensFashionIndex} className="">
-      {" "}
+    <Tabs value={mensFashionIndex} className="s">
       <Typography
         variant="h1"
         color="blue"
         textGradient
-        className="my-10  text-xl 2xl:text-6xl flex items-center justify-center"
+        className="my-10 text-xl 2xl:text-6xl flex items-center justify-center"
       >
         Choose Your Best
       </Typography>
-      {/* Set the value to the index of "Men's Fashion" */}
-      <TabsHeader className=" flex justify-center  items-center flex-wrap 2xl:flex-nowrap">
+      <TabsHeader className="flex justify-center items-center flex-wrap 2xl:flex-nowrap">
         {uniqueCategories.map((category, index) => (
           <Tab key={index} value={index}>
             {category}
           </Tab>
         ))}
       </TabsHeader>
-      <TabsBody
-        className="flex flex-wrap justify-center items-center
-      "
-      >
+      <TabsBody className="flex flex-wrap justify-center items-center">
         {uniqueCategories.map((category, idx) => (
           <TabPanel
-            className="flex items-center justify-center flex-wrap gap-5 "
+            className="flex items-center justify-center flex-wrap gap-2 sm:gap-3 md:gap-5"
             key={idx}
             value={idx}
           >
             {data
               .filter((item) => item.category === category)
               .map((item, index) => (
-                <Card className="w-56 h-96" key={index}>
-                  <CardHeader shadow={false} floated={false} className="h-96">
+                <Card
+                  className="w-36 h-60 sm:w-48 sm:h-72 md:w-56 md:h-96"
+                  key={index}
+                >
+                  <CardHeader
+                    shadow={false}
+                    floated={false}
+                    className="h-36 sm:h-48 md:h-96"
+                  >
                     <img
                       src={item.image}
                       alt="card-image"
-                      className=" w-full h-full object-contain"
+                      className="w-full h-full object-contain"
                     />
                   </CardHeader>
-                  <CardBody>
-                    <div className="mb-2 flex items-center justify-between">
+                  <CardBody className="p-2 sm:p-4">
+                    <div className="mb-1 sm:mb-2 flex items-center justify-between">
                       <Typography
                         color="blue-gray"
-                        className="font-medium text-sm"
+                        className="font-medium text-xs sm:text-sm"
                       >
                         {item.title.slice(0, 20)}..
                       </Typography>
-                      <Typography color="blue-gray" className="font-medium">
+                      <Typography
+                        color="blue-gray"
+                        className="font-medium text-xs sm:text-sm"
+                      >
                         {item.price}$
                       </Typography>
                     </div>
@@ -113,9 +116,10 @@ export default function FilterProducts() {
                       color="gray"
                       className="font-normal opacity-75 text-xs"
                     >
-                      {item?.description.slice(0, 50)}...
+                      {item?.description.slice(0, 20)}...
                     </Typography>
-                    <div className="flex my-3">
+                    {/* Hide rating on mobile devices */}
+                    <div className="hidden sm:flex my-2">
                       <span className="font-semibold">Rating: </span>
                       {typeof item?.rating?.rate === "number" &&
                         item.rating.rate >= 0 &&
@@ -131,8 +135,8 @@ export default function FilterProducts() {
                     <Button
                       ripple={false}
                       fullWidth={true}
-                      className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
-                      onClick={() => addToCart(item)} // Use the addToCart function from the context
+                      className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 text-xs sm:text-sm p-1 2xl:p-5"
+                      onClick={() => addToCart(item)}
                     >
                       Add to Cart
                     </Button>
