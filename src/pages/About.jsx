@@ -50,7 +50,7 @@ function About() {
         <Typography
           variant="h1"
           color="blue-gray"
-          className="mb-10 text-center"
+          className="mb-10 text-center text-lg md:text-4xl lg:text-3xl 2xl:text-5xl"
         >
           {aboutPageContent.title}
         </Typography>
@@ -58,7 +58,7 @@ function About() {
           {aboutPageContent.sections.map((section, index) => (
             <Card key={index} className="h-full">
               <CardBody>
-                <Typography variant="h4" color="blue-gray" className="mb-2">
+                <Typography variant="h6" color="blue-gray" className="mb-2">
                   {section.heading}
                 </Typography>
                 <Typography color="blue-gray">{section.content}</Typography>
