@@ -62,8 +62,22 @@ export default function Footer() {
             className="mb-4 text-center font-normal text-blue-gray-900 md:mb-0"
           >
             &copy; {currentYear}{" "}
-            <Link to="https://hamropasal.com/">Hamro pasal</Link>. All Rights
-            Reserved.
+            <Link to="https://haamropasal.netlify.app/">Hamro pasal</Link>. All
+            Rights Reserved.
+          </Typography>
+          <Typography
+            variant="small"
+            className="mb-4 text-center font-normal text-blue-gray-900 md:mb-0"
+          >
+            Created by
+            <Link to="https://bishalsaud.vercel.app/"> Bishal Saud</Link>
+          </Typography>
+          <Typography
+            variant="small"
+            className="mb-4 text-center font-normal text-blue-gray-900 md:mb-0"
+          >
+            Shop owner
+            <Link to="https://umeshbhandari.vercel.app/"> Umesh Bhandari</Link>.
           </Typography>
           <div className="flex gap-4 text-blue-gray-900 sm:justify-center">
             <Typography
