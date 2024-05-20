@@ -63,7 +63,7 @@ export function EcommerceCard() {
     <>
       <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-6 gap-4 p-4 place-items-center">
         {data.map((item, index) => (
-          <Card className="w-30 sm:w-48 md:w-56 h-auto" key={index}>
+          <Card className="w-[10rem] sm:w-48 md:w-56 h-auto" key={index}>
             <CardHeader
               shadow={false}
               floated={false}

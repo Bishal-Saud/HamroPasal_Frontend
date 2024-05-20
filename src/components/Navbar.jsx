@@ -19,6 +19,7 @@ import {
 } from "@heroicons/react/24/outline";
 
 import { Link } from "react-router-dom";
+import logo from "../assets/HamroPhotos/logo.png";
 
 import {
   Bars4Icon,
@@ -248,14 +249,12 @@ export default function Header() {
   return (
     <nav className="mx-auto py-2 px-10 shadow-sm  w-full ">
       <div className="flex items-center justify-between text-blue-gray-900">
-        <Typography
-          as="a"
-          href="#"
-          variant="h6"
-          className="mr-4 cursor-pointer py-1.5 lg:ml-2"
-        >
-          Hamro Pasal
-        </Typography>
+        <img
+          src={logo}
+          alt="logo"
+          className="mr-4 cursor-pointer py-1.5 lg:ml-2 w-[10rem] "
+        />
+
         <div className="hidden lg:block">
           <NavList />
         </div>
