@@ -33,7 +33,7 @@ export default function FaqPasal() {
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
   return (
-    <section className="flex flex-col items-center justify-center mx-36">
+    <section className="flex flex-col items-center justify-center mx-2 2xl:mx-36">
       <Typography variant="h1" color="blue" textGradient className="my-10">
         FAQ ??
       </Typography>

@@ -26,7 +26,7 @@ import {
 import { CreditCardIcon, LockClosedIcon } from "@heroicons/react/24/solid";
 import Layout from "../layout";
 import { useCart } from "../components/Cartcontext";
-
+import hamroQr from "../assets/HamroPhotos/qrPayment.png";
 function formatCardNumber(value) {
   const val = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
   const matches = val.match(/\d{4,16}/g);
@@ -310,10 +310,7 @@ export default function CheckoutForm() {
                       >
                         Scan Me
                       </Typography>
-                      <img
-                        src="../../public/images/qrPayment.png"
-                        alt="QR Code"
-                      />
+                      <img src={hamroQr} alt="QR Code" />
                     </div>
                     <div className="my-3">
                       <Typography

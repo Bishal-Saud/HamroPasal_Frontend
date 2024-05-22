@@ -55,7 +55,7 @@ export default function FilterProducts() {
   const mensFashionIndex = uniqueCategories.indexOf("men's clothing");
 
   return (
-    <Tabs value={mensFashionIndex} className="s">
+    <Tabs value={mensFashionIndex} className="">
       <Typography
         variant="h1"
         color="blue"
@@ -64,7 +64,7 @@ export default function FilterProducts() {
       >
         Choose Your Best
       </Typography>
-      <TabsHeader className="flex justify-center items-center flex-wrap 2xl:flex-nowrap">
+      <TabsHeader className="flex justify-center items-center  flex-wrap 2xl:flex-nowrap ">
         {uniqueCategories.map((category, index) => (
           <Tab key={index} value={index}>
             {category}
