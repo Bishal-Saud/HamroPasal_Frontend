@@ -15,28 +15,42 @@ import {
   Spinner,
 } from "@material-tailwind/react";
 import { useCart } from "./Cartcontext";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllProducts } from "../Redux/slice/ProductSlice";
 
 export function EcommerceCard() {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
   const { addToCart } = useCart();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("https://fakestoreapi.com/products");
-        setData(response.data);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get("https://fakestoreapi.com/products");
+  //       setData(response.data);
+  //     } catch (err) {
+  //       setError(err);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchData();
+  //   fetchData();
+  // }, []);
+
+  const dispatch = useDispatch();
+
+  const { productData } = useSelector((state) => state.product);
+
+  async function loadProduct() {
+    await dispatch(getAllProducts());
+    setLoading(false);
+  }
+  useEffect(() => {
+    loadProduct();
   }, []);
 
   const handleAddToCart = (item) => {
@@ -62,7 +76,7 @@ export function EcommerceCard() {
   return (
     <>
       <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-6 gap-4 p-4 place-items-center">
-        {data.map((item, index) => (
+        {productData.map((item, index) => (
           <Card className="w-[10rem] sm:w-48 md:w-56 h-auto" key={index}>
             <CardHeader
               shadow={false}

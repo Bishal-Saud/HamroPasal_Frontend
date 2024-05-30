@@ -15,7 +15,6 @@ function App() {
       <Route path="/" element={<Homepage />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<ContactUs />} />
-
       <Route path="/checkout/:id" element={<CheckoutPage />} />
       <Route path="/checkout/:id/buynow" element={<CheckoutForm />} />
       <Route path="/" component={<CartMenu />} />
