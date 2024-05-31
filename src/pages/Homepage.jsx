@@ -1,8 +1,10 @@
+// Homepage.js
 import React, { useEffect, useState } from "react";
 import Layout from "../layout";
 import CarouselForHomePage from "../components/Carousel";
 import FlashSales from "../components/FlashSales";
-import { Typography } from "@material-tailwind/react";
+import { Typography, Button } from "@material-tailwind/react";
+import Popup from "../components/PopUp";
 
 function Homepage() {
   const getTimeRemaining = () => {
@@ -24,6 +26,7 @@ function Homepage() {
   };
 
   const [timeRemaining, setTimeRemaining] = useState(getTimeRemaining());
+  const [popupOpen, setPopupOpen] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -37,6 +40,10 @@ function Homepage() {
     return () => clearInterval(interval);
   }, []);
 
+  const togglePopup = () => {
+    setPopupOpen(!popupOpen);
+  };
+
   return (
     <Layout>
       <main className="h-full mt-10">
@@ -45,15 +52,21 @@ function Homepage() {
         </div>
         {/* Products  */}
         <div className="products mt-10">
-          <Typography
-            variant="h1"
-            color="blue"
-            textGradient
-            className="ml-20 2xl:text-6xl xl:text-4xl text-sm md:text-xl"
-          >
-            Flash Sale: {formatTime(timeRemaining)}
-          </Typography>
-          <div className="flex items-center justify-center gap-5">
+          <div className="flex items-center">
+            <Typography
+              variant="h1"
+              color="blue"
+              textGradient
+              className="ml-20 2xl:text-6xl xl:text-4xl text-sm md:text-xl"
+            >
+              Flash Sale: {formatTime(timeRemaining)}
+            </Typography>
+            <Button color="blue" className="ml-4" onClick={togglePopup}>
+              Add Product
+            </Button>
+          </div>
+          <Popup open={popupOpen} onClose={togglePopup} />
+          <div className="flex items-center justify-center gap-5 mt-5">
             <FlashSales />
           </div>
         </div>

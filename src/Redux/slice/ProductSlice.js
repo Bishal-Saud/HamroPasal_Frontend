@@ -23,6 +23,33 @@ export const getAllProducts = createAsyncThunk("/products/get", async () => {
   }
 });
 
+export const createNewProduct = createAsyncThunk(
+  "/product/create",
+  async (data) => {
+    try {
+      let formData = new FormData();
+      formData.append("title", data?.title);
+      formData.append("description", data?.description);
+      formData.append("price", data?.price);
+      formData.append("category", data?.category);
+      formData.append("image", data?.image);
+      formData.append("rate", data?.rate);
+      formData.append("count", data?.count);
+
+      const response = axiosInstance.post("/products", formData);
+      toast.promise(response, {
+        loading: "Creating New Product",
+        success: "Created New Product",
+        error: "Failed to create Product!",
+      });
+
+      return (await response).data;
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  }
+);
+
 const productSlice = createSlice({
   name: "products",
   initialState,

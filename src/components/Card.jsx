@@ -112,7 +112,9 @@ export function EcommerceCard() {
                 {item.description.slice(0, 0)}...
               </Typography>
               <div className="hidden sm:flex my-2">
-                <span className="font-semibold">Rating: </span>
+                <span className="font-semibold">
+                  Rating: {item.rating.rate}
+                </span>
                 {typeof item.rating?.rate === "number" &&
                   item.rating.rate >= 0 &&
                   item.rating.rate <= 5 && (
