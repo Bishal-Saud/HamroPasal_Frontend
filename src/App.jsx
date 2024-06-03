@@ -8,6 +8,7 @@ import CartMenu from "./components/CartMenu";
 
 import CheckoutForm from "./pages/Checkout.Form";
 import ContactUs from "./pages/Contact";
+import DashboardPage from "./pages/DashboardPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path="/checkout/:id" element={<CheckoutPage />} />
       <Route path="/checkout/:id/buynow" element={<CheckoutForm />} />
       <Route path="/" component={<CartMenu />} />
+      <Route path="/dashboard" element={<DashboardPage />} />
     </Routes>
   );
 }

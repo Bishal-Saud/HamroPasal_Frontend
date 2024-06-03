@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import { createNewProduct } from "../Redux/slice/ProductSlice";
 import toast from "react-hot-toast";
 
-const Popup = ({ open, onClose, onAddProduct }) => {
+const Popup = ({ open, onClose }) => {
   const [showForm, setShowForm] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
