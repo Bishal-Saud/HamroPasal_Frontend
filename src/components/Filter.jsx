@@ -16,6 +16,8 @@ import {
   Spinner,
 } from "@material-tailwind/react";
 import { useCart } from "./Cartcontext";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllProducts } from "../Redux/slice/ProductSlice";
 
 export default function FilterProducts() {
   const [data, setData] = useState([]);
@@ -24,19 +26,31 @@ export default function FilterProducts() {
 
   const { addToCart } = useCart();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("https://fakestoreapi.com/products");
-        setData(response.data);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get("https://fakestoreapi.com/products");
+  //       setData(response.data);
+  //     } catch (err) {
+  //       setError(err);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchData();
+  //   fetchData();
+  // }, []);
+
+  const dispatch = useDispatch();
+
+  const { productData } = useSelector((state) => state.product);
+  async function loadProduct() {
+    await dispatch(getAllProducts());
+    setLoading(false);
+  }
+  useEffect(() => {
+    loadProduct();
+    setData(productData);
   }, []);
 
   if (loading)
@@ -121,7 +135,7 @@ export default function FilterProducts() {
                     {/* Hide rating on mobile devices */}
                     <div className="hidden sm:flex my-2">
                       <span className="font-semibold">Rating: </span>
-                      {typeof item?.rating?.rate === "number" &&
+                      {typeof item?.rating?.rate === "string" &&
                         item.rating.rate >= 0 &&
                         item.rating.rate <= 5 && (
                           <Rating

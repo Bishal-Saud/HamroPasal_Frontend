@@ -66,7 +66,7 @@ export function DashboardMenu() {
               className="h-8 w-8"
             />
             <Typography variant="h5" color="blue-gray">
-              Sidebar
+              Hamro Pasal
             </Typography>
           </div>
           <div className="p-2">

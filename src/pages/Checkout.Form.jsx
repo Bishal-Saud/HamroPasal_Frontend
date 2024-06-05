@@ -68,7 +68,7 @@ export default function CheckoutForm() {
 
   useEffect(() => {
     const storedItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-    const selectedItem = storedItems.find((item) => item.id.toString() === id);
+    const selectedItem = storedItems.find((item) => item._id.toString() === id);
     setCartItem(selectedItem);
   }, [id]);
 

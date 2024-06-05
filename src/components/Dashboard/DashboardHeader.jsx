@@ -10,7 +10,7 @@ import { DashboardMenu } from "./DashboardSlide";
 
 export function DashboardHeader() {
   return (
-    <nav className=" w-screen border py-3">
+    <nav className=" w-full border py-3">
       <div className="flex flex-wrap items-center justify-between gap-y-4 ">
         <Typography
           as="a"

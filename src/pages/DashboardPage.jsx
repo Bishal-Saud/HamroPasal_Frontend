@@ -2,15 +2,21 @@ import React from "react";
 
 import { DashboardHeader } from "../components/Dashboard/DashboardHeader";
 import TodaySales from "../components/Dashboard/TodaySales";
-import SalesChart from "../components/Dashboard/Chart";
+import SalesChart from "../components/Dashboard/LineChart";
+import BarChart from "../components/Dashboard/BarChart";
+import PieChart from "../components/Dashboard/PieChart";
 
 function DashboardPage() {
   return (
-    <main>
+    <main className="">
       <DashboardHeader />
-      <section className="w-full flex border-2">
+      <section className="w-full flex border-2 flex-wrap">
         <TodaySales />
-        <SalesChart />
+        <div className=" w-full flex flex-wrap gap-5 items-center justify-between">
+          <SalesChart />
+          <BarChart />
+          <PieChart />
+        </div>
       </section>
     </main>
   );

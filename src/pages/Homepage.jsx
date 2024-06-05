@@ -65,6 +65,7 @@ function Homepage() {
               Add Product
             </Button>
           </div>
+
           <Popup open={popupOpen} onClose={togglePopup} />
           <div className="flex items-center justify-center gap-5 mt-5">
             <FlashSales />

@@ -14,6 +14,8 @@ const CheckoutPage = () => {
   const { cartItems } = useCart();
   const navigate = useNavigate();
 
+  console.log("cart Items", cartItems[0]._id);
+  // Remaining - Unable to fetch id in checkout page
   const buyNow = (id) => {
     navigate(`/checkout/${id}/buynow`);
   };
@@ -59,7 +61,7 @@ const CheckoutPage = () => {
                   <Button
                     color="gray"
                     className="w-52"
-                    onClick={() => buyNow(item.id)}
+                    onClick={() => buyNow(item._id)}
                   >
                     Checkout
                   </Button>
