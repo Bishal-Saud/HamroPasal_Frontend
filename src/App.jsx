@@ -9,6 +9,15 @@ import CartMenu from "./components/CartMenu";
 import CheckoutForm from "./pages/Checkout.Form";
 import ContactUs from "./pages/Contact";
 import DashboardPage from "./pages/DashboardPage";
+import {
+  RedirectToSignIn,
+  SignIn,
+  SignUp,
+  SignedIn,
+  SignedOut,
+} from "@clerk/clerk-react";
+import SignInPage from "./pages/SignIn";
+import SignUpPage from "./pages/SignUp";
 
 function App() {
   return (
@@ -19,7 +28,16 @@ function App() {
       <Route path="/checkout/:id" element={<CheckoutPage />} />
       <Route path="/checkout/:id/buynow" element={<CheckoutForm />} />
       <Route path="/" component={<CartMenu />} />
-      <Route path="/dashboard" element={<DashboardPage />} />
+      <Route
+        path="/dashboard"
+        element={
+          <SignedIn>
+            <DashboardPage />
+          </SignedIn>
+        }
+      />
+      <Route path="/sign-in" element={<SignInPage />} />
+      <Route path="/sign-up" element={<SignUpPage />}></Route>
     </Routes>
   );
 }

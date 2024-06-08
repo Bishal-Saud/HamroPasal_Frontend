@@ -5,8 +5,11 @@ import CarouselForHomePage from "../components/Carousel";
 import FlashSales from "../components/FlashSales";
 import { Typography, Button } from "@material-tailwind/react";
 import Popup from "../components/PopUp";
+import { Link } from "react-router-dom";
+import { useUser } from "@clerk/clerk-react";
 
 function Homepage() {
+  const { isSignedIn } = useUser();
   const getTimeRemaining = () => {
     const now = new Date();
     const tomorrow = new Date(now);
@@ -64,6 +67,19 @@ function Homepage() {
             <Button color="blue" className="ml-4" onClick={togglePopup}>
               Add Product
             </Button>
+            <span className="mx-3 opacity-50">
+              Add products here or go to the{" "}
+              {isSignedIn ? (
+                <Link className="underline" to="/dashboard">
+                  Dashboard
+                </Link>
+              ) : (
+                <Link className="underline" to="/sign-in">
+                  Dashboard
+                </Link>
+              )}{" "}
+              for more details
+            </span>
           </div>
 
           <Popup open={popupOpen} onClose={togglePopup} />

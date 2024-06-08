@@ -18,7 +18,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/HamroPhotos/logo.png";
 
 import {
@@ -37,6 +37,7 @@ import {
 import { KeyIcon, StarIcon } from "@heroicons/react/16/solid";
 import CartMenu from "./CartMenu";
 
+import { useUser, SignedIn, SignedOut, SignInButton } from "@clerk/clerk-react";
 const navListMenuItems = [
   {
     title: "Women's Fashion",
@@ -181,6 +182,8 @@ function NavListMenu() {
 }
 
 function NavList() {
+  const { isSignedIn } = useUser();
+
   return (
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
       <Typography
@@ -232,6 +235,31 @@ function NavList() {
           </div>
         </ListItem>
       </Typography>
+      {isSignedIn ? (
+        <Typography
+          as="a"
+          href="/dashboard"
+          variant="small"
+          color="blue-gray"
+          className="font-medium"
+        >
+          <ListItem className="flex items-center gap-2 py-2 pr-4 underline">
+            <Link to="/dashboard">Dashboard</Link>
+          </ListItem>
+        </Typography>
+      ) : (
+        <Typography
+          as="a"
+          href="/sign-in"
+          variant="small"
+          color="blue-gray"
+          className="font-medium"
+        >
+          <ListItem className="flex items-center gap-2 py-2 pr-4 underline">
+            <SignInButton />
+          </ListItem>
+        </Typography>
+      )}
     </List>
   );
 }

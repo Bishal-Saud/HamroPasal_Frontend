@@ -7,19 +7,13 @@ import {
 } from "@material-tailwind/react";
 import { BellIcon, Cog6ToothIcon } from "@heroicons/react/24/solid";
 import { DashboardMenu } from "./DashboardSlide";
+import { UserButton } from "@clerk/clerk-react";
 
 export function DashboardHeader() {
   return (
-    <nav className=" w-full border py-3">
+    <nav className=" w-full border py-3 px-10">
       <div className="flex flex-wrap items-center justify-between gap-y-4 ">
-        <Typography
-          as="a"
-          href="#"
-          variant="h6"
-          className="mr-4 ml-2 cursor-pointer py-1.5"
-        >
-          Dashboard
-        </Typography>
+        <UserButton /> <span className="font-semibold mx-5">Profile</span>
         <div className="ml-auto flex gap-1 md:mr-4">
           <DashboardMenu />
 

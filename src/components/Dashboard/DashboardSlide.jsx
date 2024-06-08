@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   IconButton,
   Typography,
@@ -14,11 +14,12 @@ import {
   Input,
   Drawer,
   Card,
+  Button,
 } from "@material-tailwind/react";
 import {
   PresentationChartBarIcon,
   ShoppingBagIcon,
-  UserCircleIcon,
+  PlusCircleIcon,
   Cog6ToothIcon,
   InboxIcon,
   PowerIcon,
@@ -31,11 +32,16 @@ import {
   Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { UserButton, useClerk } from "@clerk/clerk-react";
+import { useNavigate } from "react-router-dom";
+import Popup from "../PopUp";
 
 export function DashboardMenu() {
   const [open, setOpen] = React.useState(0);
   const [openAlert, setOpenAlert] = React.useState(true);
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+  const { signOut } = useClerk();
+  const navigate = useNavigate();
 
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
@@ -43,6 +49,17 @@ export function DashboardMenu() {
 
   const openDrawer = () => setIsDrawerOpen(true);
   const closeDrawer = () => setIsDrawerOpen(false);
+
+  const handleLogout = async () => {
+    await signOut();
+    navigate.push("/");
+  };
+
+  const [popupOpen, setPopupOpen] = useState(false);
+
+  const togglePopup = () => {
+    setPopupOpen(!popupOpen);
+  };
 
   return (
     <>
@@ -60,14 +77,8 @@ export function DashboardMenu() {
           className="h-[calc(100vh-2rem)] w-full p-4"
         >
           <div className="mb-2 flex items-center gap-4 p-4">
-            <img
-              src="https://docs.material-tailwind.com/img/logo-ct-dark.png"
-              alt="brand"
-              className="h-8 w-8"
-            />
-            <Typography variant="h5" color="blue-gray">
-              Hamro Pasal
-            </Typography>
+            <UserButton />
+            <span className="font-semibold ">Profile</span>
           </div>
           <div className="p-2">
             <Input
@@ -182,9 +193,12 @@ export function DashboardMenu() {
             </ListItem>
             <ListItem>
               <ListItemPrefix>
-                <UserCircleIcon className="h-5 w-5" />
+                <PlusCircleIcon className="h-5 w-5" />
               </ListItemPrefix>
-              Profile
+              <button color="black" className="" onClick={togglePopup}>
+                Add Product
+              </button>
+              <Popup open={popupOpen} onClose={togglePopup} />
             </ListItem>
             <ListItem>
               <ListItemPrefix>
@@ -192,7 +206,7 @@ export function DashboardMenu() {
               </ListItemPrefix>
               Settings
             </ListItem>
-            <ListItem>
+            <ListItem onClick={handleLogout}>
               <ListItemPrefix>
                 <PowerIcon className="h-5 w-5" />
               </ListItemPrefix>
