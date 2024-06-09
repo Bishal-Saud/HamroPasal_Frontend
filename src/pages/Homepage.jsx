@@ -55,31 +55,33 @@ function Homepage() {
         </div>
         {/* Products  */}
         <div className="products mt-10">
-          <div className="flex items-center">
+          <div className="flex items-center 2xl:flex-row xl:flex-row flex-col">
             <Typography
               variant="h1"
               color="blue"
               textGradient
-              className="ml-20 2xl:text-6xl xl:text-4xl text-sm md:text-xl"
+              className="xl:ml-20 2xl:text-6xl xl:text-4xl text-sm md:text-xl"
             >
               Flash Sale: {formatTime(timeRemaining)}
             </Typography>
-            <Button color="blue" className="ml-4" onClick={togglePopup}>
-              Add Product
-            </Button>
-            <span className="mx-3 opacity-50">
-              Add products here or go to the{" "}
-              {isSignedIn ? (
-                <Link className="underline" to="/dashboard">
-                  Dashboard
-                </Link>
-              ) : (
-                <Link className="underline" to="/sign-in">
-                  Dashboard
-                </Link>
-              )}{" "}
-              for more details
-            </span>
+            <div className="flex 2xl:flex-row xl:flex-row flex-col">
+              <Button color="blue" className="ml-4" onClick={togglePopup}>
+                Add Product
+              </Button>
+              <span className="mx-3 opacity-50">
+                Add products here or go to the{" "}
+                {isSignedIn ? (
+                  <Link className="underline" to="/dashboard">
+                    Dashboard
+                  </Link>
+                ) : (
+                  <Link className="underline" to="/sign-in">
+                    Dashboard
+                  </Link>
+                )}{" "}
+                for more details
+              </span>
+            </div>
           </div>
 
           <Popup open={popupOpen} onClose={togglePopup} />

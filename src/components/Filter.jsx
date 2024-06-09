@@ -19,7 +19,6 @@ import { useCart } from "./Cartcontext";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../Redux/slice/ProductSlice";
 
-authentication
 export default function FilterProducts() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
