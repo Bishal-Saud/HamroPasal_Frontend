@@ -50,6 +50,21 @@ export const createNewProduct = createAsyncThunk(
   }
 );
 
+export const deleteProduct = createAsyncThunk("/product/delete", async (id) => {
+  try {
+    const response = axiosInstance.delete(`/products/${id}`);
+
+    toast.promise(response, {
+      loading: "Deleting Product ...",
+      success: "Product deleted successfully",
+      error: "Failed to delete Product",
+    });
+    return (await response).data;
+  } catch (error) {
+    toast.error(error?.response?.data?.message);
+  }
+});
+
 const productSlice = createSlice({
   name: "products",
   initialState,

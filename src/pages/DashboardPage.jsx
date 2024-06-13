@@ -5,6 +5,7 @@ import TodaySales from "../components/Dashboard/TodaySales";
 import SalesChart from "../components/Dashboard/LineChart";
 import BarChart from "../components/Dashboard/BarChart";
 import PieChart from "../components/Dashboard/PieChart";
+import AllProducts from "../components/Dashboard/AllProducts";
 
 function DashboardPage() {
   return (
@@ -16,6 +17,9 @@ function DashboardPage() {
           <SalesChart />
           <BarChart />
           <PieChart />
+        </div>
+        <div>
+          <AllProducts />
         </div>
       </section>
     </main>

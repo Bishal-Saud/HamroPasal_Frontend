@@ -20,7 +20,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../Redux/slice/ProductSlice";
 
 export default function FilterProducts() {
-  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -50,7 +49,6 @@ export default function FilterProducts() {
   }
   useEffect(() => {
     loadProduct();
-    setData(productData);
   }, []);
 
   if (loading)
@@ -63,7 +61,7 @@ export default function FilterProducts() {
   if (error) return <div>Error: {error.message}</div>;
 
   const uniqueCategories = Array.from(
-    new Set(data.map((item) => item.category))
+    new Set(productData.map((item) => item.category))
   );
 
   const mensFashionIndex = uniqueCategories.indexOf("men's clothing");
@@ -78,7 +76,7 @@ export default function FilterProducts() {
       >
         Choose Your Best
       </Typography>
-      <TabsHeader className="flex justify-center items-center  flex-wrap 2xl:flex-nowrap ">
+      <TabsHeader className="flex  flex-wrap  ">
         {uniqueCategories.map((category, index) => (
           <Tab key={index} value={index}>
             {category}
@@ -92,7 +90,7 @@ export default function FilterProducts() {
             key={idx}
             value={idx}
           >
-            {data
+            {productData
               .filter((item) => item.category === category)
               .map((item, index) => (
                 <Card

@@ -222,10 +222,7 @@ export function DashboardMenu() {
             <Typography variant="h6" className="mb-1">
               Upgrade to PRO
             </Typography>
-            <Typography variant="small" className="font-normal opacity-80">
-              Upgrade to Material Tailwind PRO and get even more components,
-              plugins, advanced features and premium.
-            </Typography>
+
             <div className="mt-4 flex gap-3">
               <Typography
                 as="a"
