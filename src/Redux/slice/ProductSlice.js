@@ -49,6 +49,25 @@ export const createNewProduct = createAsyncThunk(
     }
   }
 );
+export const updateProduct = createAsyncThunk(
+  "/product/update",
+  async ({ id, data }) => {
+    try {
+      const response = axiosInstance.put(`/products/${id}`, data);
+
+      toast.promise(response, {
+        loading: "Updating Product...",
+        success: "Product updated successfully",
+        error: "Failed to update Product",
+      });
+
+      return (await response).data.product;
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+      throw error;
+    }
+  }
+);
 
 export const deleteProduct = createAsyncThunk("/product/delete", async (id) => {
   try {
@@ -70,12 +89,22 @@ const productSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getAllProducts.fulfilled, (state, action) => {
-      console.log("actionPayload", action.payload);
-      if (action.payload) {
-        state.productData = [...action.payload];
-      }
-    });
+    builder
+      .addCase(getAllProducts.fulfilled, (state, action) => {
+        console.log("actionPayload", action.payload);
+        if (action.payload) {
+          state.productData = [...action.payload];
+        }
+      })
+      .addCase(updateProduct.fulfilled, (state, action) => {
+        const updatedProduct = action.payload;
+        const index = state.productData.findIndex(
+          (product) => product._id === updatedProduct._id
+        );
+        if (index !== -1) {
+          state.productData[index] = updatedProduct;
+        }
+      });
   },
 });
 
